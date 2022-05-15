@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum TileType {Empty, Experience, Enemy, Player, Health, Null}
+public enum TileType {Empty, Experience, Enemy, Player, Health, Zombie, Rat, IronDummy, Null}
 /* represent each tile in the tile map*/
 public class Unit {
     private TileType type;
@@ -26,8 +26,8 @@ public class PathGenerator : MonoBehaviour
 {
 
     [SerializeField] private Tilemap backgroundTileMap, indicatorTileMap;
-    [SerializeField] private Tile emptyTile, enemyTile, playerTile, indicatorTile, experienceTile, healthTile;
-    [SerializeField, Min(0)] private int emptyFrequency, enemyFrequency, experienceFrequency, healthFrequency;
+    [SerializeField] private FixedData mapData;
+    private PlayerStats playerStats;
     private List<TileType> tileTypes = new List<TileType>(); //collection of TileType for randomization
     private Unit[,] map = new Unit[3,11];
 
@@ -49,11 +49,17 @@ public class PathGenerator : MonoBehaviour
     }
 
     void Start()
-    {   
-        addToTileTypes(TileType.Empty, emptyFrequency);
-        addToTileTypes(TileType.Enemy, enemyFrequency);
-        addToTileTypes(TileType.Experience, experienceFrequency);
-        addToTileTypes(TileType.Health, healthFrequency);
+    {
+        player = FindObjectOfType<PlayerControl>();
+        playerStats = player.Stats;
+
+        addToTileTypes(TileType.Empty, playerStats.EmptyFrequency);
+        addToTileTypes(TileType.Enemy, playerStats.EnemyFrequency);
+        addToTileTypes(TileType.Experience, playerStats.ExperienceFrequency);
+        addToTileTypes(TileType.Health, playerStats.HealthFrequency);
+        addToTileTypes(TileType.Zombie, playerStats.ZombieFrequency);
+        addToTileTypes(TileType.Rat, playerStats.RatFrequency);
+        addToTileTypes(TileType.IronDummy, playerStats.IronDummyFrequency);
 
         //randomize beginning map
         foreach (Unit unit in Map) {
@@ -89,19 +95,28 @@ public class PathGenerator : MonoBehaviour
             Vector3Int currentCell = backgroundTileMap.WorldToCell(transform.position);
             switch (unit.Type) {
                 case TileType.Empty:
-                    backgroundTileMap.SetTile(unit.Pos, emptyTile);
+                    backgroundTileMap.SetTile(unit.Pos, mapData.emptyTile);
                     break;
                 case TileType.Enemy:
-                    backgroundTileMap.SetTile(unit.Pos, enemyTile);
+                    backgroundTileMap.SetTile(unit.Pos, mapData.enemyTile);
                     break;
                 case TileType.Player:
-                    backgroundTileMap.SetTile(unit.Pos, playerTile);
+                    backgroundTileMap.SetTile(unit.Pos, mapData.playerTile);
                     break;
                 case TileType.Health:
-                    backgroundTileMap.SetTile(unit.Pos, healthTile);
+                    backgroundTileMap.SetTile(unit.Pos, mapData.healthTile);
                     break;
                 case TileType.Experience:
-                    backgroundTileMap.SetTile(unit.Pos, experienceTile);
+                    backgroundTileMap.SetTile(unit.Pos, mapData.experienceTile);
+                    break;
+                case TileType.Zombie:
+                    backgroundTileMap.SetTile(unit.Pos, mapData.zombieTile);
+                    break;
+                case TileType.Rat:
+                    backgroundTileMap.SetTile(unit.Pos, mapData.ratTile);
+                    break;
+                case TileType.IronDummy:
+                    backgroundTileMap.SetTile(unit.Pos, mapData.ironDummyTile);
                     break;
                 case TileType.Null:
                     backgroundTileMap.SetTile(unit.Pos, null);
@@ -113,7 +128,7 @@ public class PathGenerator : MonoBehaviour
     /* to draw the indicator on map with specified Vector3Int position that shows as indexes
        since it shows where player will move next, it will always be 1 index higher in y from position*/
     public void drawIndicator() {
-        indicatorTileMap.SetTile(Map[player.MovingDestination.x, player.MovingDestination.y].Pos, indicatorTile);
+        indicatorTileMap.SetTile(Map[player.MovingDestination.x, player.MovingDestination.y].Pos, mapData.indicatorTile);
     }
 
     /* delete indicator that drawn last time, so that there's only be one indicator */
@@ -130,7 +145,7 @@ public class PathGenerator : MonoBehaviour
         Map[unitIndex.x, unitIndex.y].Type = TileType.Null;
     }
 
-    /* replace and generate a new row at the top of the map*/
+    /* replace and generate a new row at the top of the map */
     public void generateRow(TileType column1Type, TileType column2Type, TileType column3Type) {
         shiftDownward();
         Map[0,map.GetLength(1)-1].Type = column1Type;
@@ -138,7 +153,7 @@ public class PathGenerator : MonoBehaviour
         Map[2,map.GetLength(1)-1].Type = column3Type;
     }
 
-    /* shift the whole map down for 1 cell*/
+    /* shift the whole map down for 1 row */
     public void shiftDownward()
     {
         for (int x = 0; x < Map.GetLength(0); x++)
@@ -146,7 +161,7 @@ public class PathGenerator : MonoBehaviour
                 Map[x,y].duplicate(Map[x,y+1]);
     }
 
-    /* check if pos is inside the map */
+    /* check if index is inside the map */
     public bool checkValidIndex(Vector3Int index) {
         if (index.x < 0 || index.x >= map.GetLength(0))
             return false;
@@ -155,7 +170,7 @@ public class PathGenerator : MonoBehaviour
         return true;
     }
 
-    /* check if destination is walkable */
+    /* check if destination is in range of player reachable distance (+1/-1 unit) */
     public bool checkWalkable(Vector3Int index) {
         if (checkValidIndex(index))
             if (player.CurrentIndex.x+1 >= index.x && player.CurrentIndex.x-1 <= index.x)

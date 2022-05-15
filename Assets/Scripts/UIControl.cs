@@ -7,15 +7,14 @@ using UnityEngine.UI;
 public class UIControl : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI healthText, experienceText;
-    private PlayerControl player;
-    void Start()
-    {
-        player = FindObjectOfType<PlayerControl>();
+    private PlayerStats playerStats;
+
+    void Start() {
+        playerStats = FindObjectOfType<PlayerControl>().Stats;
     }
 
-    
     void Update()
     {
-        healthText.text = player.Health + "/" + player.MaxHealth;
+        healthText.text = playerStats.Health + "/" + playerStats.MaxHealth;
     }
 }

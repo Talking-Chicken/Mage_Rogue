@@ -4,22 +4,17 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] private GameObject indicator;
     public Vector3Int currentIndex;
     private Vector3Int movingDestination;
-
     private PathGenerator pathGenerator;
-
-    //player stats
-    private int health, experience;
-    [SerializeField] private int maxHealth;
+    [SerializeField] private FixedData mapData;
+    private PlayerStats playerStats = new PlayerStats();
+    
 
     //getters & setters
     public Vector3Int CurrentIndex {get=>currentIndex; private set=>currentIndex = value;}
     public Vector3Int MovingDestination {get=>movingDestination; private set=>movingDestination = value;}
-    public int Health {get=>health; set=>health = value;}
-    public int MaxHealth {get=>maxHealth;}
-    public int Experience {get=>experience; set=>experience = value;}
+    public PlayerStats Stats {get=>playerStats;}
 
     private PlayerStateBase currentState;
     public PlayerStatePrepare statePrepare = new PlayerStatePrepare();
@@ -46,7 +41,7 @@ public class PlayerControl : MonoBehaviour
         CurrentIndex = new Vector3Int(pathGenerator.Map.GetLength(0)/2, 0);
         MovingDestination = new Vector3Int(CurrentIndex.x, 1);
 
-        Health = maxHealth;
+        playerStats.Health = playerStats.MaxHealth;
 
         changeState(statePrepare);
     }
@@ -79,7 +74,6 @@ public class PlayerControl : MonoBehaviour
 
     /* move to movingDestination */
     public void move() {
-        pathGenerator.setUnitToEmpty(currentIndex);
         CurrentIndex = MovingDestination;
         pathGenerator.Map[CurrentIndex.x, CurrentIndex.y].Type = TileType.Player;
     }
@@ -88,13 +82,22 @@ public class PlayerControl : MonoBehaviour
     public void react(Vector3Int index) {
         switch (pathGenerator.Map[index.x, index.y].Type) {
             case TileType.Experience:
-                Experience++;
+                playerStats.Experience++;
                 break;
             case TileType.Health:
-                Health = Mathf.Min(Health+1, maxHealth);
+                playerStats.Health = Mathf.Min(playerStats.Health+1, playerStats.MaxHealth);
                 break;
             case TileType.Enemy:
-                Health--;
+                playerStats.Health--;
+                break;
+            case TileType.Zombie:
+                playerStats.Health -= mapData.zombieDamage - playerStats.ZombieResistence;
+                break;
+            case TileType.Rat:
+                playerStats.Health -= mapData.ratDamage - playerStats.RatResistence;
+                break;
+            case TileType.IronDummy:
+                playerStats.Health -= mapData.ironDummyDamage - playerStats.IronDummyResistence;
                 break;
         }
     }
