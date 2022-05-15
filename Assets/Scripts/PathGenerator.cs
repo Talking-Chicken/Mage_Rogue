@@ -58,7 +58,6 @@ public class PathGenerator : MonoBehaviour
         //randomize beginning map
         foreach (Unit unit in Map) {
             unit.Type = tileTypes[Random.Range(0, tileTypes.Count)];
-            if (unit.Type.Equals(TileType.Experience)) Debug.Log("WUT");
         }
 
         player = FindObjectOfType<PlayerControl>();
