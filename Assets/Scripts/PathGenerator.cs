@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum TileType {Empty, PowerUp, Enemy, Obstacle, Door, Player, Null}
+public enum TileType {Empty, Experience, Enemy, Player, Health, Null}
 /* represent each tile in the tile map*/
 public class Unit {
     private TileType type;
@@ -26,7 +26,9 @@ public class PathGenerator : MonoBehaviour
 {
 
     [SerializeField] private Tilemap backgroundTileMap, indicatorTileMap;
-    [SerializeField] private Tile emptyTile, enemyTile, playerTile, indicatorTile;
+    [SerializeField] private Tile emptyTile, enemyTile, playerTile, indicatorTile, experienceTile, healthTile;
+    [SerializeField, Min(0)] private int emptyFrequency, enemyFrequency, experienceFrequency, healthFrequency;
+    private List<TileType> tileTypes = new List<TileType>(); //collection of TileType for randomization
     private Unit[,] map = new Unit[3,11];
 
     private PlayerControl player;
@@ -34,7 +36,7 @@ public class PathGenerator : MonoBehaviour
     //getters & setters
     public Unit[,] Map {get=>map;}
     
-    void Awake() 
+    void Awake()
     {
         //build the map
         Vector3Int startPos = backgroundTileMap.WorldToCell(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width/2 - 1,0,0)));
@@ -48,6 +50,17 @@ public class PathGenerator : MonoBehaviour
 
     void Start()
     {   
+        addToTileTypes(TileType.Empty, emptyFrequency);
+        addToTileTypes(TileType.Enemy, enemyFrequency);
+        addToTileTypes(TileType.Experience, experienceFrequency);
+        addToTileTypes(TileType.Health, healthFrequency);
+
+        //randomize beginning map
+        foreach (Unit unit in Map) {
+            unit.Type = tileTypes[Random.Range(0, tileTypes.Count)];
+            if (unit.Type.Equals(TileType.Experience)) Debug.Log("WUT");
+        }
+
         player = FindObjectOfType<PlayerControl>();
         //start from the middle bottom of the screen
         map[player.CurrentIndex.x, player.CurrentIndex.y].Type = TileType.Player;
@@ -58,10 +71,17 @@ public class PathGenerator : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            generateRow(TileType.Enemy, TileType.Empty, TileType.Enemy);
+            generateRow(tileTypes[Random.Range(0, tileTypes.Count)], 
+                        tileTypes[Random.Range(0, tileTypes.Count)], 
+                        tileTypes[Random.Range(0, tileTypes.Count)]);
             drawMap();
         }
         drawMap();
+    }
+
+    private void addToTileTypes(TileType type, int numberCount) {
+        for (int count = 0; count < numberCount; count++)
+            tileTypes.Add(type);
     }
 
     /*draw out the whole map based on unit's tile type*/
@@ -77,6 +97,12 @@ public class PathGenerator : MonoBehaviour
                     break;
                 case TileType.Player:
                     backgroundTileMap.SetTile(unit.Pos, playerTile);
+                    break;
+                case TileType.Health:
+                    backgroundTileMap.SetTile(unit.Pos, healthTile);
+                    break;
+                case TileType.Experience:
+                    backgroundTileMap.SetTile(unit.Pos, experienceTile);
                     break;
                 case TileType.Null:
                     backgroundTileMap.SetTile(unit.Pos, null);
