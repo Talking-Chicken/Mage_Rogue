@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerStateMove : PlayerStateBase
 {
-    public override void EnterState(PlayerControl player) {}
+    public override void EnterState(PlayerControl player) {
+        player.move();
+        player.changeState(player.statePrepare);
+    }
     public override void UpdateState(PlayerControl player) {}
     public override void LeaveState(PlayerControl player) {}
 }

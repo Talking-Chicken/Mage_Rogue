@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum TileType {Empty, PowerUp, Enemy, Obstacle, Door, Player}
+public enum TileType {Empty, PowerUp, Enemy, Obstacle, Door, Player, Null}
 /* represent each tile in the tile map*/
 public class Unit {
     private TileType type;
@@ -50,7 +50,7 @@ public class PathGenerator : MonoBehaviour
     {   
         player = FindObjectOfType<PlayerControl>();
         //start from the middle bottom of the screen
-        map[player.CurrentIndexX, player.CurrentIndexY].Type = TileType.Player;
+        map[player.CurrentIndex.x, player.CurrentIndex.y].Type = TileType.Player;
         drawMap();
     }
 
@@ -61,6 +61,7 @@ public class PathGenerator : MonoBehaviour
             generateRow(TileType.Enemy, TileType.Empty, TileType.Enemy);
             drawMap();
         }
+        drawMap();
     }
 
     /*draw out the whole map based on unit's tile type*/
@@ -77,6 +78,9 @@ public class PathGenerator : MonoBehaviour
                 case TileType.Player:
                     backgroundTileMap.SetTile(unit.Pos, playerTile);
                     break;
+                case TileType.Null:
+                    backgroundTileMap.SetTile(unit.Pos, null);
+                    break;
             }
         }
     }
@@ -84,12 +88,21 @@ public class PathGenerator : MonoBehaviour
     /* to draw the indicator on map with specified Vector3Int position that shows as indexes
        since it shows where player will move next, it will always be 1 index higher in y from position*/
     public void drawIndicator() {
-        indicatorTileMap.SetTile(Map[player.MovingDestination.x, player.MovingDestination.y+1].Pos, indicatorTile);
+        indicatorTileMap.SetTile(Map[player.MovingDestination.x, player.MovingDestination.y].Pos, indicatorTile);
     }
 
     /* delete indicator that drawn last time, so that there's only be one indicator */
     public void deleteIndicator(Vector3Int indicatorPos) {
-        indicatorTileMap.SetTile(Map[indicatorPos.x, indicatorPos.y+1].Pos, null);
+        indicatorTileMap.SetTile(Map[indicatorPos.x, indicatorPos.y].Pos, null);
+    }
+
+    /* to set the unit in map with specific indexes to TileType.Empty */
+    public void setUnitToEmpty(Vector3Int unitIndex) {
+        Map[unitIndex.x, unitIndex.y].Type = TileType.Empty;
+    }
+
+    public void setUnitToNull(Vector3Int unitIndex) {
+        Map[unitIndex.x, unitIndex.y].Type = TileType.Null;
     }
 
     /* replace and generate a new row at the top of the map*/
@@ -109,19 +122,19 @@ public class PathGenerator : MonoBehaviour
     }
 
     /* check if pos is inside the map */
-    public bool checkValidIndex(int indexX, int indexY) {
-        if (indexX < 0 || indexX >= map.GetLength(0))
+    public bool checkValidIndex(Vector3Int index) {
+        if (index.x < 0 || index.x >= map.GetLength(0))
             return false;
-        if (indexY < 0 || indexY >= map.GetLength(1))
+        if (index.y < 0 || index.y >= map.GetLength(1))
             return false;
         return true;
     }
 
     /* check if destination is walkable */
-    public bool checkWalkable(int indexX, int indexY) {
-        if (checkValidIndex(indexX, indexY))
-            if (player.CurrentIndexX+1 >= indexX && player.CurrentIndexX-1 <= indexX)
-                if (player.CurrentIndexY+1 >= indexY && player.CurrentIndexY-1 <= indexY)
+    public bool checkWalkable(Vector3Int index) {
+        if (checkValidIndex(index))
+            if (player.CurrentIndex.x+1 >= index.x && player.CurrentIndex.x-1 <= index.x)
+                if (player.CurrentIndex.y+1 >= index.y && player.CurrentIndex.y-1 <= index.y)
                     return true;
         return false;
     }
