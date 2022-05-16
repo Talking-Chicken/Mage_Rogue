@@ -21,6 +21,7 @@ MonoBehaviour:
   zombieTile: {fileID: 11400000, guid: fe826cd584494a94799394325eb1c569, type: 2}
   ratTile: {fileID: 11400000, guid: 3f79baa0da539464a9b8d3e7c7de68d6, type: 2}
   ironDummyTile: {fileID: 11400000, guid: a8b3b1da7a1dd1044b6342eceb33409f, type: 2}
+  fogTile: {fileID: 11400000, guid: 3c8790c906e3aa449bbb72f9467825ef, type: 2}
   enemyDamage: 2
   zombieDamage: 3
   ratDamage: 1

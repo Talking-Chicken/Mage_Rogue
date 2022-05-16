@@ -25,7 +25,7 @@ public class Unit {
 public class PathGenerator : MonoBehaviour
 {
 
-    [SerializeField] private Tilemap backgroundTileMap, indicatorTileMap;
+    [SerializeField] private Tilemap backgroundTileMap, indicatorTileMap, fogTileMap;
     [SerializeField] private FixedData mapData;
     private PlayerStats playerStats;
     private List<TileType> tileTypes = new List<TileType>(); //collection of TileType for randomization
@@ -66,7 +66,6 @@ public class PathGenerator : MonoBehaviour
             unit.Type = tileTypes[Random.Range(0, tileTypes.Count)];
         }
 
-        player = FindObjectOfType<PlayerControl>();
         //start from the middle bottom of the screen
         map[player.CurrentIndex.x, player.CurrentIndex.y].Type = TileType.Player;
         drawMap();
@@ -79,17 +78,22 @@ public class PathGenerator : MonoBehaviour
             generateRow(tileTypes[Random.Range(0, tileTypes.Count)], 
                         tileTypes[Random.Range(0, tileTypes.Count)], 
                         tileTypes[Random.Range(0, tileTypes.Count)]);
-            drawMap();
         }
         drawMap();
     }
 
-    private void addToTileTypes(TileType type, int numberCount) {
+    public void addToTileTypes(TileType type, int numberCount) {
         for (int count = 0; count < numberCount; count++)
             tileTypes.Add(type);
     }
 
-    /*draw out the whole map based on unit's tile type*/
+    public void removeFromTileTypes(TileType type) {
+        if (tileTypes.Contains(type))
+            tileTypes.Remove(type);
+    }
+
+    /*draw out the whole map based on unit's tile type
+      Then, draw fogs above them*/
     public void drawMap() {
         foreach (Unit unit in map) {
             Vector3Int currentCell = backgroundTileMap.WorldToCell(transform.position);
@@ -123,6 +127,14 @@ public class PathGenerator : MonoBehaviour
                     break;
             }
         }
+
+        //set fog tiles
+        for (int y = Map.GetLength(1)-1; y > playerStats.Sight; y--)
+            for (int x = 0; x < Map.GetLength(0); x++)
+                fogTileMap.SetTile(Map[x,y].Pos, mapData.fogTile);
+        for (int y = playerStats.Sight; y > 0; y--)
+            for (int x = 0; x < Map.GetLength(0); x++)
+                fogTileMap.SetTile(Map[x,y].Pos, null);
     }
 
     /* to draw the indicator on map with specified Vector3Int position that shows as indexes

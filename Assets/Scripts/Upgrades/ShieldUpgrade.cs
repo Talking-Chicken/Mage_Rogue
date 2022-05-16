@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SightUpgrade : Upgrade
+public class ShieldUpgrade : Upgrade
 {
     public override void upgrade()
     {
-        FindObjectOfType<PlayerControl>().Stats.Sight+=2;
+        FindObjectOfType<PlayerControl>().Stats.IronDummyResistence += 1;
         base.upgrade();
     }
 }

@@ -52,6 +52,7 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
+        Debug.Log("in player control " + Stats.Sight);
     }
 
     /* call pathGenerator's drawIndicator() function */
@@ -100,13 +101,13 @@ public class PlayerControl : MonoBehaviour
                 playerStats.Health--;
                 break;
             case TileType.Zombie:
-                playerStats.Health -= mapData.zombieDamage - playerStats.ZombieResistence;
+                playerStats.Health -= Mathf.Max(0,mapData.zombieDamage - playerStats.ZombieResistence);
                 break;
             case TileType.Rat:
-                playerStats.Health -= mapData.ratDamage - playerStats.RatResistence;
+                playerStats.Health -= Mathf.Max(0,mapData.ratDamage - playerStats.RatResistence);
                 break;
             case TileType.IronDummy:
-                playerStats.Health -= mapData.ironDummyDamage - playerStats.IronDummyResistence;
+                playerStats.Health -= Mathf.Max(0,mapData.ironDummyDamage - playerStats.IronDummyResistence);
                 break;
         }
     }

@@ -14,7 +14,8 @@ public class FixedData : ScriptableObject
                 healthTile, 
                 zombieTile, 
                 ratTile, 
-                ironDummyTile;
+                ironDummyTile,
+                fogTile;
     
     public int enemyDamage,
                zombieDamage,

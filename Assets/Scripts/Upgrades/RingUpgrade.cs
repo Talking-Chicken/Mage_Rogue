@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SightUpgrade : Upgrade
+public class RingUpgrade : Upgrade
 {
     public override void upgrade()
     {
-        FindObjectOfType<PlayerControl>().Stats.Sight+=2;
+        FindObjectOfType<PathGenerator>().addToTileTypes(TileType.Experience, 1);
         base.upgrade();
     }
 }
