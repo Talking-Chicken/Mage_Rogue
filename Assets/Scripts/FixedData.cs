@@ -15,7 +15,8 @@ public class FixedData : ScriptableObject
                 zombieTile, 
                 ratTile, 
                 ironDummyTile,
-                fogTile;
+                fogTile,
+                bossTile;
     
     public int enemyDamage,
                zombieDamage,
@@ -23,4 +24,5 @@ public class FixedData : ScriptableObject
                ironDummyDamage;
     
     public int[] levelUpRequirements;
+    public int[] bossAppearLevel;
 }

@@ -10,6 +10,8 @@ public class PlayerStateMove : PlayerStateBase
 
         //I set PathGenerator script run after PlayerControl script in Script Excution Order, so the tilemap will shift down only after player moved
         player.move();
+
+        player.summonBoss();
         player.changeState(player.statePrepare);
     }
     public override void UpdateState(PlayerControl player) {}

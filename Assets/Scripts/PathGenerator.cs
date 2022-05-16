@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum TileType {Empty, Experience, Enemy, Player, Health, Zombie, Rat, IronDummy, Null}
+public enum TileType {Empty, Experience, Enemy, Player, Health, Zombie, Rat, IronDummy, Boss, Null}
 /* represent each tile in the tile map*/
 public class Unit {
     private TileType type;
@@ -32,6 +32,7 @@ public class PathGenerator : MonoBehaviour
     private Unit[,] map = new Unit[3,11];
 
     private PlayerControl player;
+    private Boss boss;
 
     //getters & setters
     public Unit[,] Map {get=>map;}
@@ -52,6 +53,7 @@ public class PathGenerator : MonoBehaviour
     {
         player = FindObjectOfType<PlayerControl>();
         playerStats = player.Stats;
+        boss = FindObjectOfType<Boss>();
 
         addToTileTypes(TileType.Empty, playerStats.EmptyFrequency);
         addToTileTypes(TileType.Enemy, playerStats.EnemyFrequency);
@@ -78,6 +80,9 @@ public class PathGenerator : MonoBehaviour
             generateRow(tileTypes[Random.Range(0, tileTypes.Count)], 
                         tileTypes[Random.Range(0, tileTypes.Count)], 
                         tileTypes[Random.Range(0, tileTypes.Count)]);
+            if (boss.BossYIndex <= 0) {
+                drawBoss();
+            }
         }
         drawMap();
     }
@@ -122,6 +127,9 @@ public class PathGenerator : MonoBehaviour
                 case TileType.IronDummy:
                     backgroundTileMap.SetTile(unit.Pos, mapData.ironDummyTile);
                     break;
+                case TileType.Boss:
+                    backgroundTileMap.SetTile(unit.Pos, mapData.bossTile);
+                    break;
                 case TileType.Null:
                     backgroundTileMap.SetTile(unit.Pos, null);
                     break;
@@ -137,8 +145,7 @@ public class PathGenerator : MonoBehaviour
                 fogTileMap.SetTile(Map[x,y].Pos, null);
     }
 
-    /* to draw the indicator on map with specified Vector3Int position that shows as indexes
-       since it shows where player will move next, it will always be 1 index higher in y from position*/
+    /* to draw the indicator on map with specified Vector3Int position that shows as indexes*/
     public void drawIndicator() {
         indicatorTileMap.SetTile(Map[player.MovingDestination.x, player.MovingDestination.y].Pos, mapData.indicatorTile);
     }
@@ -146,6 +153,14 @@ public class PathGenerator : MonoBehaviour
     /* delete indicator that drawn last time, so that there's only be one indicator */
     public void deleteIndicator(Vector3Int indicatorPos) {
         indicatorTileMap.SetTile(Map[indicatorPos.x, indicatorPos.y].Pos, null);
+    }
+
+    /* replace a tile to boss tile according to boss appear position */
+    public void drawBoss() {
+        Vector3Int bossPos = boss.bossPosition();
+        boss.BossYIndex = bossPos.y;
+        Map[bossPos.x, bossPos.y].Type = TileType.Boss;
+        backgroundTileMap.SetTile(Map[bossPos.x, bossPos.y].Pos, mapData.bossTile);
     }
 
     /* to set the unit in map with specific indexes to TileType.Empty */
@@ -165,12 +180,15 @@ public class PathGenerator : MonoBehaviour
         Map[2,map.GetLength(1)-1].Type = column3Type;
     }
 
-    /* shift the whole map down for 1 row */
+    /* shift the whole map down for 1 row, and track the y position of boss (if there's one) */
     public void shiftDownward()
     {
         for (int x = 0; x < Map.GetLength(0); x++)
             for (int y = 0; y < Map.GetLength(1)-1; y++)
                 Map[x,y].duplicate(Map[x,y+1]);
+        
+        if (!boss.IsBossEliminated)
+            boss.BossYIndex--;
     }
 
     /* check if index is inside the map */
@@ -186,8 +204,7 @@ public class PathGenerator : MonoBehaviour
     public bool checkWalkable(Vector3Int index) {
         if (checkValidIndex(index))
             if (player.CurrentIndex.x+1 >= index.x && player.CurrentIndex.x-1 <= index.x)
-                if (player.CurrentIndex.y+1 >= index.y && player.CurrentIndex.y-1 <= index.y)
-                    return true;
+                return true;
         return false;
     }
 }

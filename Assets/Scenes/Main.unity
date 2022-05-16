@@ -123,53 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &5068234
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5068235}
-  - component: {fileID: 5068236}
-  m_Layer: 0
-  m_Name: Sword Upgrade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5068235
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5068234}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.689734, y: -3.6740696, z: -7.8589163}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5068236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5068234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b1a3cfee843954699d8369020ccf76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeName: Treasure Chest
-  description: Healt potion will be more likely to appear
-  icon: {fileID: -1420602719, guid: 65d263bdf07d60f4598ec1b5c2c1c5e2, type: 3}
 --- !u!1 &297652526
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,53 +508,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1 &865229937
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 865229939}
-  - component: {fileID: 865229940}
-  m_Layer: 0
-  m_Name: Ring Upgrade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &865229939
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865229937}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.689734, y: -3.6740696, z: -7.8589163}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &865229940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 865229937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbee06f0593265e41b230c64123e6ccd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeName: Ring
-  description: There will be more Experience on map
-  icon: {fileID: 1344496721, guid: 65d263bdf07d60f4598ec1b5c2c1c5e2, type: 3}
 --- !u!1 &871216316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,53 +1217,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1219296416
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1219296417}
-  - component: {fileID: 1219296418}
-  m_Layer: 0
-  m_Name: Club Upgrade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1219296417
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219296416}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.689734, y: -3.6740696, z: -7.8589163}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1219296418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219296416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e647cdc0303d1a4b8df194bbb3bcbac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeName: Club
-  description: Decrease cult enemy frequency, but increase rat enemy frequency
-  icon: {fileID: 1067264770, guid: 65d263bdf07d60f4598ec1b5c2c1c5e2, type: 3}
 --- !u!1 &1230585840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,6 +1226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1230585841}
+  - component: {fileID: 1230585842}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -1389,6 +1249,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1230585842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230585840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0471007c408fccd448ac80537a52d81c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapData: {fileID: 11400000, guid: ddcc8945f4a005b44ae9035d452c7d76, type: 2}
+  damge: 6
 --- !u!1 &1313450985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,6 +1589,11 @@ MonoBehaviour:
   - {fileID: 6935562896426542913, guid: 5ca1554dcba39874899a751c42393991, type: 3}
   - {fileID: 263605697953361790, guid: c9bd8974ddfac664c99570ff5fb79cb8, type: 3}
   - {fileID: 6021597393151224216, guid: a27cb5174544d4a4093af5524419624b, type: 3}
+  - {fileID: 292006831547326769, guid: e12f1b45a9053124bb18bbd288477c43, type: 3}
+  - {fileID: 7513075929685761174, guid: cafd2969eddd4cf49b498ab573afbda1, type: 3}
+  - {fileID: 5976014333570261418, guid: a3c5485afb91e6d4db8e9cc3e6ed5353, type: 3}
+  - {fileID: 5890257373847372489, guid: 234386537dc68e24eafe10d235edeb05, type: 3}
+  - {fileID: 3209090654437447132, guid: 1542e266a6b60ac4fad9b7feeba5dd2f, type: 3}
   upgradButtons:
   - {fileID: 1623545282}
   - {fileID: 1679637023}
@@ -1722,100 +1601,6 @@ MonoBehaviour:
   upgradeNameText: {fileID: 886138910}
   upgradeDesText: {fileID: 1762942800}
   indicator: {fileID: 1076618592}
---- !u!1 &1468837940
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1468837942}
-  - component: {fileID: 1468837943}
-  m_Layer: 0
-  m_Name: Cross Upgrade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1468837942
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468837940}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.689734, y: -3.6740696, z: -7.8589163}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1468837943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468837940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16c079525dc9d5a48ba5044329991f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeName: Cross
-  description: Zombie deals less damage to you
-  icon: {fileID: 1028514314, guid: 65d263bdf07d60f4598ec1b5c2c1c5e2, type: 3}
---- !u!1 &1534663046
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1534663048}
-  - component: {fileID: 1534663047}
-  m_Layer: 0
-  m_Name: Shield Upgrade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1534663047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534663046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cb42a3cfbffe6140b3518cc1f3a1d4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeName: Shield
-  description: Iron Dummy deals less damage to you
-  icon: {fileID: -397412005, guid: 65d263bdf07d60f4598ec1b5c2c1c5e2, type: 3}
---- !u!4 &1534663048
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534663046}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.689734, y: -3.6740696, z: -7.8589163}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1623545281 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6620148176272621074, guid: f44386763cdfb7c4ea407d9692bcb45d, type: 3}

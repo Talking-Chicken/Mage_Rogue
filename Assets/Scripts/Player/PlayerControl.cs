@@ -10,7 +10,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private FixedData mapData;
     private PlayerStats playerStats = new PlayerStats();
     private UpgradeControl upgradeControl;
-    
+    private Boss boss;
+
 
     //getters & setters
     public Vector3Int CurrentIndex {get=>currentIndex; private set=>currentIndex = value;}
@@ -40,6 +41,7 @@ public class PlayerControl : MonoBehaviour
     {
         pathGenerator = FindObjectOfType<PathGenerator>();
         upgradeControl = FindObjectOfType<UpgradeControl>();
+        boss = FindObjectOfType<Boss>();
         CurrentIndex = new Vector3Int(pathGenerator.Map.GetLength(0)/2, 0);
         MovingDestination = new Vector3Int(CurrentIndex.x, 1);
 
@@ -52,7 +54,6 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
-        Debug.Log("in player control " + Stats.Sight);
     }
 
     /* call pathGenerator's drawIndicator() function */
@@ -109,6 +110,14 @@ public class PlayerControl : MonoBehaviour
             case TileType.IronDummy:
                 playerStats.Health -= Mathf.Max(0,mapData.ironDummyDamage - playerStats.IronDummyResistence);
                 break;
+            case TileType.Boss:
+                playerStats.Health -= boss.Damage;
+                //after defeating several bosses
+                if (boss.BossLevel >= 5)
+                    playerStats.Health = playerStats.Health;
+                else
+                    boss.IsBossEliminated = true;
+                break;
         }
     }
 
@@ -131,5 +140,10 @@ public class PlayerControl : MonoBehaviour
     public void upgrade() {
         if (playerStats.IsLeveledUp)
             upgradeControl.useCurrentUpgrade();
+    }
+    
+    public void summonBoss() {
+        if (playerStats.Level >= mapData.bossAppearLevel[boss.BossLevel] && boss.IsBossEliminated) 
+            pathGenerator.drawBoss();
     }
 }
