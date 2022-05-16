@@ -80,7 +80,7 @@ public class PathGenerator : MonoBehaviour
             generateRow(tileTypes[Random.Range(0, tileTypes.Count)], 
                         tileTypes[Random.Range(0, tileTypes.Count)], 
                         tileTypes[Random.Range(0, tileTypes.Count)]);
-            if (boss.BossYIndex <= 0) {
+            if (boss.BossYIndex < 0) {
                 drawBoss();
             }
         }

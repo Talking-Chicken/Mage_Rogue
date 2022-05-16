@@ -8,7 +8,7 @@ public class Boss : MonoBehaviour
     private PlayerControl player;
     private PathGenerator pathGenerator;
     [SerializeField] private FixedData mapData;
-    private int damage = 6;
+    private int damage = 3;
     private Dictionary<Vector3Int, float> playerDestinations = new Dictionary<Vector3Int, float>();
     private bool isBossEliminated = true;
     private int bossLevel = 0;

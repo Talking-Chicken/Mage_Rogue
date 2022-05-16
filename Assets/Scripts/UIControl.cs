@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class UIControl : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI healthText, experienceText, upgradeNameText, upgradeDesText;
+    [SerializeField] private TextMeshProUGUI healthText, experienceText, upgradeNameText, upgradeDesText, stepText;
     private PlayerStats playerStats;
     private UpgradeControl upgradeControl;
 
@@ -20,6 +20,7 @@ public class UIControl : MonoBehaviour
     {
         healthText.text = playerStats.Health + "/" + playerStats.MaxHealth;
         experienceText.text = "Level " + playerStats.Level;
+        stepText.text = PlayerPrefs.GetInt("steps") + " steps";
     }
 
     public void showUpgradeInfo(int index) {

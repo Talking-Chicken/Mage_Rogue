@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class PlayerControl : MonoBehaviour
     }
     void Start()
     {
+        PlayerPrefs.SetInt("steps", 0);
         pathGenerator = FindObjectOfType<PathGenerator>();
         upgradeControl = FindObjectOfType<UpgradeControl>();
         boss = FindObjectOfType<Boss>();
@@ -54,6 +56,8 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
+        if (Stats.Health <= 0)
+            SceneManager.LoadScene("Ending");
     }
 
     /* call pathGenerator's drawIndicator() function */
@@ -80,6 +84,7 @@ public class PlayerControl : MonoBehaviour
     public void move() {
         CurrentIndex = MovingDestination;
         pathGenerator.Map[CurrentIndex.x, CurrentIndex.y].Type = TileType.Player;
+        PlayerPrefs.SetInt("steps", PlayerPrefs.GetInt("steps")+1);
     }
 
     /* react to the unit of current pos based on their TileType */
@@ -114,7 +119,7 @@ public class PlayerControl : MonoBehaviour
                 playerStats.Health -= boss.Damage;
                 //after defeating several bosses
                 if (boss.BossLevel >= 5)
-                    playerStats.Health = playerStats.Health;
+                    SceneManager.LoadScene("Ending");
                 else
                     boss.IsBossEliminated = true;
                 break;
