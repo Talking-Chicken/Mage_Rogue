@@ -9,6 +9,9 @@ public class PlayerStatePrepare : PlayerStateBase
         player.selectMovingDestination();
         player.drawIndicator();
 
+        player.navigatingUpgrades();
+        player.levelUp();
+
         if (Input.GetKeyDown(KeyCode.Space))
             player.changeState(player.stateMove);
     }

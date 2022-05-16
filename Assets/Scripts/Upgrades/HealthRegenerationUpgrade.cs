@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SightUpgrade : Upgrade
+public class HealthRegenerationUpgrade : Upgrade
 {
     public override void upgrade()
     {
-        FindObjectOfType<PlayerControl>().Stats.Sight++;
+        FindObjectOfType<PlayerControl>().Stats.HealthRegeneration++;
         base.upgrade();
     }
 }

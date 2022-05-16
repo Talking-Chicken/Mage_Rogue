@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats
 {
     private int healthRegeneration = 1, health, maxHealth = 10;
-    private int experience;
+    private int experience, level;
     private int sight = 3;
     private int zombieResistence, ratResistence, ironDummyResistence;
     private int emptyFrequency = 3, 
@@ -15,10 +15,12 @@ public class PlayerStats
                 zombieFrequency = 2, 
                 ratFrequency = 4, 
                 ironDummyFrequency = 1;
+    private bool isLeveledUp = false;
 
     public int HealthRegeneration {get=>healthRegeneration; set=> healthRegeneration = value;}
     public int Health {get=>health; set=> health = value;}
     public int Experience {get=>experience; set=> experience = value;}
+    public int Level {get=>level; set=> level = value;}
     public int Sight {get=>sight; set=> sight = value;}
     public int MaxHealth {get=>maxHealth; set=> maxHealth = value;}
     public int ZombieResistence {get=>zombieResistence; set=> zombieResistence = value;}
@@ -31,4 +33,5 @@ public class PlayerStats
     public int ZombieFrequency {get=>zombieFrequency; set=> zombieFrequency = value;}
     public int RatFrequency {get=>ratFrequency; set=> ratFrequency = value;}
     public int IronDummyFrequency {get=>ironDummyFrequency; set=> ironDummyFrequency = value;}
+    public bool IsLeveledUp {get=>isLeveledUp; set=>isLeveledUp = value;}
 }

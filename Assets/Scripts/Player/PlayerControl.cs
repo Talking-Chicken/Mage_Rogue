@@ -9,6 +9,7 @@ public class PlayerControl : MonoBehaviour
     private PathGenerator pathGenerator;
     [SerializeField] private FixedData mapData;
     private PlayerStats playerStats = new PlayerStats();
+    private UpgradeControl upgradeControl;
     
 
     //getters & setters
@@ -38,6 +39,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         pathGenerator = FindObjectOfType<PathGenerator>();
+        upgradeControl = FindObjectOfType<UpgradeControl>();
         CurrentIndex = new Vector3Int(pathGenerator.Map.GetLength(0)/2, 0);
         MovingDestination = new Vector3Int(CurrentIndex.x, 1);
 
@@ -83,9 +85,16 @@ public class PlayerControl : MonoBehaviour
         switch (pathGenerator.Map[index.x, index.y].Type) {
             case TileType.Experience:
                 playerStats.Experience++;
+                if (playerStats.Experience >= mapData.levelUpRequirements[Mathf.Min(playerStats.Level, mapData.levelUpRequirements.Length-1)]) {
+                    playerStats.Level++;
+                    playerStats.Experience = 0;
+                    playerStats.IsLeveledUp = true;
+                    upgradeControl.randomlySetUpgrades();
+                    upgradeControl.showUpgradeInfo(0);
+                }
                 break;
             case TileType.Health:
-                playerStats.Health = Mathf.Min(playerStats.Health+1, playerStats.MaxHealth);
+                playerStats.Health = Mathf.Min(playerStats.Health+playerStats.HealthRegeneration, playerStats.MaxHealth);
                 break;
             case TileType.Enemy:
                 playerStats.Health--;
@@ -100,5 +109,26 @@ public class PlayerControl : MonoBehaviour
                 playerStats.Health -= mapData.ironDummyDamage - playerStats.IronDummyResistence;
                 break;
         }
+    }
+
+    public void levelUp() {
+        if (playerStats.IsLeveledUp) {
+            upgradeControl.showUpgradeIcons();
+            upgradeControl.enableUpgradeButtons();
+        } else {
+            upgradeControl.disableUpgradeButtons();
+        }
+    }
+
+    public void navigatingUpgrades() {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+            upgradeControl.selectNextUpgrade();
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            upgradeControl.selectPreviousUpgrade();
+    }
+
+    public void upgrade() {
+        if (playerStats.IsLeveledUp)
+            upgradeControl.useCurrentUpgrade();
     }
 }

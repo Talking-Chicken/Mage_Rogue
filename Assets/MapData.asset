@@ -12,18 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458b311837eb620418430131be40aca5, type: 3}
   m_Name: MapData
   m_EditorClassIdentifier: 
-  backgroundTileMap: {fileID: 0}
-  indicatorTileMap: {fileID: 0}
   emptyTile: {fileID: 11400000, guid: ed27ef192cadfa141a158bf00f1b4160, type: 2}
   enemyTile: {fileID: 11400000, guid: 5268af088d835a54eb81d774d9b35df1, type: 2}
   playerTile: {fileID: 11400000, guid: 33a206b460660ab4082f73e854547e5d, type: 2}
-  indicatorTile: {fileID: 11400000, guid: da2cc8a7377c511469e94fe7ac74942f, type: 2}
+  indicatorTile: {fileID: 11400000, guid: 24a0b2d428875fb43bf8270cfb371cd9, type: 2}
   experienceTile: {fileID: 11400000, guid: 7cca1450f5191984a8d377ed39c2e67f, type: 2}
   healthTile: {fileID: 11400000, guid: 0cf6779f78232044a8a7de11c29cb420, type: 2}
   zombieTile: {fileID: 11400000, guid: fe826cd584494a94799394325eb1c569, type: 2}
   ratTile: {fileID: 11400000, guid: 3f79baa0da539464a9b8d3e7c7de68d6, type: 2}
   ironDummyTile: {fileID: 11400000, guid: a8b3b1da7a1dd1044b6342eceb33409f, type: 2}
-  enemyDamage: 1
-  zombieDamage: 5
-  ratDamage: 3
-  ironDummyDamage: 8
+  enemyDamage: 2
+  zombieDamage: 3
+  ratDamage: 1
+  ironDummyDamage: 5
+  levelUpRequirements: 02000000030000000300000004000000040000000500000005000000060000000600000007000000070000000800000008000000
