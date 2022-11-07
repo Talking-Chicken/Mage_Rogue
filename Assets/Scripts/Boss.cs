@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+/* Boss Class is responsible for boss's place to spawn based on the recursive function that calculate player's best path,
+   and damage the boss should make based on how many times player defeats the boss.*/
 public class Boss : MonoBehaviour
 {
     private PlayerControl player;
@@ -24,7 +26,7 @@ public class Boss : MonoBehaviour
         pathGenerator = FindObjectOfType<PathGenerator>();
     }
 
-    /* return the best destination that player can go 
+    /* return the best destination that player can go, so that either player get good stuff and then goes into the boss or get worse stuff but avoid the boss
        the function will return the path that has the best score
        if two path has the same score, return the path that its final destination closer to the center lane */
     public Vector3Int findBestDestination(int depth, Vector3Int startingIndex) {
@@ -78,7 +80,7 @@ public class Boss : MonoBehaviour
         
     }
 
-    /* return a score player will get from goin the a specific position */
+    /* return a score player will get from going to a specific position */
     public float playerReactScore(Vector3Int predictDestination) {
         switch (pathGenerator.Map[predictDestination.x, predictDestination.y].Type) {
             case TileType.Experience:
@@ -101,7 +103,7 @@ public class Boss : MonoBehaviour
         }
     }
 
-    /* boss will appear at the return position in the tilemap,
+    /* boss will appear at the return position (the "best" position player will go) in the tilemap,
        each time a new boss come, its damage will increase */
     public Vector3Int bossPosition() {
         if (IsBossEliminated) {
