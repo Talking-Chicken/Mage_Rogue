@@ -18,7 +18,7 @@ public class UIControl : MonoBehaviour
 
     void Update()
     {
-        healthText.text = playerStats.Health + "/" + playerStats.MaxHealth;
+        healthText.text = "Health: " + playerStats.Health + "/" + playerStats.MaxHealth;
         experienceText.text = "Level " + playerStats.Level;
         stepText.text = PlayerPrefs.GetInt("steps") + " steps";
     }

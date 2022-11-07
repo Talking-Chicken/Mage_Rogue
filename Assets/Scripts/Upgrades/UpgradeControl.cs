@@ -30,8 +30,10 @@ public class UpgradeControl : MonoBehaviour
         currentSelectingUpgrade = index;
         indicator.transform.position = upgradButtons[index].transform.position;
         UpgradeButtons[index].Select();
-        upgradeNameText.text = Upgrades[index].UpgradeName;
-        upgradeDesText.text = Upgrades[index].Desciption;
+        if (upgrades[index] != null) {
+            upgradeNameText.text = Upgrades[index].UpgradeName;
+            upgradeDesText.text = Upgrades[index].Desciption;
+        }
     }
 
     public void showUpgradeIcons() {
