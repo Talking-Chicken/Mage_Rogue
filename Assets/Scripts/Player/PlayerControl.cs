@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/*Player Control controls player's movement, */
+/* Player Control controls player's movement and moving destination. It has a state machine to separate player from choosing destionations and moving.
+   It also links to UpgradeControl class and PlayerStats class to have upgrade and stats change.*/
 public class PlayerControl : MonoBehaviour
 {
     public Vector3Int currentIndex;
@@ -23,7 +24,6 @@ public class PlayerControl : MonoBehaviour
     private PlayerStateBase currentState;
     public PlayerStatePrepare statePrepare = new PlayerStatePrepare();
     public PlayerStateMove stateMove = new PlayerStateMove();
-    public PlayerStateUpgrade stateUpgrade = new PlayerStateUpgrade();
     public void changeState(PlayerStateBase newState) {
         if (newState != currentState) {
             if (currentState != null)
@@ -61,7 +61,7 @@ public class PlayerControl : MonoBehaviour
             SceneManager.LoadScene("Ending");
     }
 
-    /* call pathGenerator's drawIndicator() function */
+    /* call pathGenerator's drawIndicator() function, so it can draw the indicator on the map*/
     public void drawIndicator() {
         pathGenerator.drawIndicator();
     }
@@ -127,6 +127,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    /*upgrade control will upgrade player by giving player 3 choices of upgrade abilities*/
     public void levelUp() {
         if (playerStats.IsLeveledUp) {
             upgradeControl.showUpgradeIcons();
@@ -136,6 +137,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    /*naviagting between 3 upgrade options, in order to choose the one player wants*/
     public void navigatingUpgrades() {
         if (Input.GetKeyDown(KeyCode.DownArrow))
             upgradeControl.selectNextUpgrade();
@@ -143,11 +145,13 @@ public class PlayerControl : MonoBehaviour
             upgradeControl.selectPreviousUpgrade();
     }
 
+    /*upgrade control will euip the upgrade that player chosen to player*/
     public void upgrade() {
         if (playerStats.IsLeveledUp)
             upgradeControl.useCurrentUpgrade();
     }
     
+    /*summon boss if player's level reached the requirement level, so player can have enough upgrades to fight boss*/
     public void summonBoss() {
         if (playerStats.Level >= mapData.bossAppearLevel[boss.BossLevel] && boss.IsBossEliminated) 
             pathGenerator.drawBoss();

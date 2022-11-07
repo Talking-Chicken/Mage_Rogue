@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Player Stats stores player stats, including stats about health, levels, damage resistance, and sights*/
 public class PlayerStats
 {
     private int healthRegeneration = 1, health, maxHealth = 10;
     private int experience, level;
-    private int sight = 3;
+    private int sight = 3; //it determines how many rows player can see
     private int zombieResistence, ratResistence, ironDummyResistence;
     private int emptyFrequency = 3, 
                 enemyFrequency = 3, 
