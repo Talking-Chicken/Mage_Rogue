@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/* Ending Manager Class present player's score as well as function to go back to tittle screen*/
 public class EndingManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;

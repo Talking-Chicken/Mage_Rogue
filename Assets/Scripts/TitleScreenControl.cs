@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/* Tittle Screen Control Class is responsible for setting animation triggers for tittle screen, and the exit game function.*/
 public class TitleScreenControl : MonoBehaviour
 {
     [SerializeField] Animator controlImageAnimator, titleScreenAnimator, howToPlayAnimator;
@@ -26,8 +27,8 @@ public class TitleScreenControl : MonoBehaviour
     }
 
     public void hideHowToPlay() {
-        titleScreenAnimator.SetTrigger("Tittle Enter");
         howToPlayAnimator.SetTrigger("How To Play Exit");
+        titleScreenAnimator.SetTrigger("Tittle Enter");
     }
 
     public void exitGame() {

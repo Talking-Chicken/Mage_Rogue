@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum TileType {Empty, Experience, Enemy, Player, Health, Zombie, Rat, IronDummy, Boss, Null}
 /* represent each tile in the tile map*/
+public enum TileType {Empty, Experience, Enemy, Player, Health, Zombie, Rat, IronDummy, Boss, Null}
+
+/*Unit Class is a representation of each "Tile" in the game. It stores tile's type and position, having a funtion to duplicate other units.*/
 public class Unit {
     private TileType type;
     private Vector3Int pos;
@@ -22,6 +24,8 @@ public class Unit {
     }
 }
 
+/* Path Generator Class generate a map the beginning of the game. Generate rows by rows during the game when player moves.
+   It has functions of setting individual units, show indicator of player's destination, and shifting the whole map downwards.*/
 public class PathGenerator : MonoBehaviour
 {
 
@@ -145,7 +149,8 @@ public class PathGenerator : MonoBehaviour
                 fogTileMap.SetTile(Map[x,y].Pos, null);
     }
 
-    /* to draw the indicator on map with specified Vector3Int position that shows as indexes*/
+    /* to draw the indicator on map with specified Vector3Int position that shows as indexes
+       This is the position that player will move to*/
     public void drawIndicator() {
         indicatorTileMap.SetTile(Map[player.MovingDestination.x, player.MovingDestination.y].Pos, mapData.indicatorTile);
     }
@@ -172,7 +177,8 @@ public class PathGenerator : MonoBehaviour
         Map[unitIndex.x, unitIndex.y].Type = TileType.Null;
     }
 
-    /* replace and generate a new row at the top of the map */
+    /* replace and generate a new row at the top of the map 
+       This triggers whenever player moves on step*/
     public void generateRow(TileType column1Type, TileType column2Type, TileType column3Type) {
         shiftDownward();
         Map[0,map.GetLength(1)-1].Type = column1Type;
@@ -180,7 +186,8 @@ public class PathGenerator : MonoBehaviour
         Map[2,map.GetLength(1)-1].Type = column3Type;
     }
 
-    /* shift the whole map down for 1 row, and track the y position of boss (if there's one) */
+    /* shift the whole map down for 1 row, and track the y position of boss (if there's one) 
+       It's the same as player move up 1 step*/
     public void shiftDownward()
     {
         for (int x = 0; x < Map.GetLength(0); x++)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*Player Control controls player's movement, */
 public class PlayerControl : MonoBehaviour
 {
     public Vector3Int currentIndex;

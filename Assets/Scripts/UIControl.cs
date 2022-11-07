@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/*UI Control shows player health, experience, and moved steps. It also let players to choose 1 upgrade from 3 selectable sections with specific desctiptions
+  of each upgrade.*/
 public class UIControl : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI healthText, experienceText, upgradeNameText, upgradeDesText, stepText;
