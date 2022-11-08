@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/*Upgrade is the parent class of all other upgrades. It stores name, description, and icon. It also has a virtual function that take effect eveytimg player choose the upgrade.*/
 public class Upgrade : MonoBehaviour
 {
     [SerializeField] private string upgradeName;

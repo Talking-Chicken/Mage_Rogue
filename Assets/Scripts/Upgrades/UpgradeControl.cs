@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 
 public enum UpgradeType {Sight, MaxHealth, HealthRegeneration, ZombieResistence, RatResistence, IronDummyResistence}
+
+/*Upgrade Control stores UI that shows upgrades, as well as having functions that triggers those UI.*/
 public class UpgradeControl : MonoBehaviour
 {
     [SerializeField] private List<Upgrade> upgradesList;

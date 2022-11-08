@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*It makes health potion appears more.*/
 public class TreasureChestUpgrade : Upgrade
 {
     public override void upgrade()
