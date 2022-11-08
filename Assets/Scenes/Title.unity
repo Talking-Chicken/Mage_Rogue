@@ -256,7 +256,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: -52.06
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -4954,7 +4954,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 310.8984, y: 91.4469}
+  m_SizeDelta: {x: 310.8984, y: 54.2282}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1952180267
 MonoBehaviour:
@@ -4976,7 +4976,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Boss ( Defeat 4 Times to win)
+  m_text: Boss
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a8607fdd65f78c54e94f4717f9ad45a4, type: 2}
   m_sharedMaterial: {fileID: -1470628507591531503, guid: a8607fdd65f78c54e94f4717f9ad45a4, type: 2}
